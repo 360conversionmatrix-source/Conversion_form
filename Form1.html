@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retreaver API Form</title>
+</head>
+<body>
+    <h2>Retreaver Data Submission</h2>
+    <form action="https://retreaverdata.com/data_writing" method="POST">
+        <!-- Hidden API key -->
+        <input type="hidden" name="key" value="a33aefe7-ffb3-4680-9b0e-3a50e1a9281e">
+
+        <!-- Caller Number -->
+        <label for="caller_number">Caller Number:</label>
+        <input type="text" id="caller_number" name="caller_number" required>
+        <br><br>
+        <!-- Caller Zip -->
+        <label for="caller_zip">Caller Zip:</label>
+        <input type="text" id="caller_zip" name="caller_zip" required>
+        <br><br>
+
+        <!-- Submit button -->
+        <input type="submit" value="send lead">
+    </form>
+    <script>
+        document.getElementById("apiForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // prevent page reload
+
+            // Collect form data
+            const formData = new FormData(event.target);
+            const params = new URLSearchParams(formData);
+            console.log(params)
+
+            try {
+                // Send POST request
+                const response = await fetch("https://retreaverdata.com/data_writing", {
+                    method: "POST",
+                    body: params
+                });
+
+                // Get response text (could be JSON depending on API)
+                const result = await response.text();
+
+                // Display response
+                document.getElementById("responseOutput").textContent = result;
+            } catch (error) {
+                document.getElementById("responseOutput").textContent = "Error: " + error;
+            }
+        });
+    </script>
+
+</body>
+</html>
