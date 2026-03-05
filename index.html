@@ -1,52 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Retreaver API Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CM360</title>
+    <style>
+        /* Modern Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Card Container */
+        .form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* Input Grouping */
+        .input-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Button Styling */
+        .button {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .button:hover {
+            background: #5a67d8;
+        }
+    </style>
 </head>
 <body>
-    <h2>Retreaver Data Submission</h2>
-    <form action="https://retreaverdata.com/data_writing" method="POST">
+
+    <div class="form-container">
+        <h2>CM360</h2>
+        <form action="https://retreaverdata.com/data_writing" method="POST">
         <!-- Hidden API key -->
         <input type="hidden" name="key" value="a33aefe7-ffb3-4680-9b0e-3a50e1a9281e">
 
         <!-- Caller Number -->
-        <label for="caller_number">Caller Number:</label>
-        <input type="text" id="caller_number" name="caller_number" required>
-        <br><br>
+         <div class="input-group">
+            <label for="caller_number">Caller Number:</label>
+            <input type="text" id="caller_number" name="caller_number" required>
+         </div>
+    
         <!-- Caller Zip -->
-        <label for="caller_zip">Caller Zip:</label>
-        <input type="text" id="caller_zip" name="caller_zip" required>
-        <br><br>
+        <div class="input-group">
+            <label for="caller_zip">Caller Zip:</label>
+            <input type="text" id="caller_zip" name="caller_zip" required>
+        </div>
 
         <!-- Submit button -->
-        <input type="submit" value="send lead">
+        <input class="button" type="submit" value="send lead">
     </form>
-    <script>
-        document.getElementById("apiForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // prevent page reload
-
-            // Collect form data
-            const formData = new FormData(event.target);
-            const params = new URLSearchParams(formData);
-            console.log(params)
-
-            try {
-                // Send POST request
-                const response = await fetch("https://retreaverdata.com/data_writing", {
-                    method: "POST",
-                    body: params
-                });
-
-                // Get response text (could be JSON depending on API)
-                const result = await response.text();
-
-                // Display response
-                document.getElementById("responseOutput").textContent = result;
-            } catch (error) {
-                document.getElementById("responseOutput").textContent = "Error: " + error;
-            }
-        });
-    </script>
+    </div>
 
 </body>
 </html>
